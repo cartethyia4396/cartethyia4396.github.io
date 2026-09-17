@@ -2,7 +2,6 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <meta name="referrer" content="no-referrer">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title></title>
   <style>
@@ -12,7 +11,7 @@
       align-items: center;
       justify-content: center;
     }
-    img {
+    video {
       max-width: 100%;
       max-height: 100vh;
       display: block;
@@ -20,6 +19,18 @@
   </style>
 </head>
 <body>
-  <img src="https://i0.hdslb.com/bfs/new_dyn/cc2c6ad041749cd2caf2c890f319e6f6251067711.gif" alt="">
+  <video id="player" autoplay muted loop playsinline controls></video>
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@1/dist/hls.min.js"></script>
+  <script>
+    const src = "https://prod-community-vod.kurobbs.com/vod-7d106a/b00903f9b17271f1bfafe6e7c5780102/02ae02437d5cd0504908415cb6138f92-hd.m3u8";
+    const video = document.getElementById("player");
+    if (video.canPlayType("application/vnd.apple.mpegurl")) {
+      video.src = src;
+    } else if (Hls.isSupported()) {
+      const hls = new Hls();
+      hls.loadSource(src);
+      hls.attachMedia(video);
+    }
+  </script>
 </body>
 </html>
