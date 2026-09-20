@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>拉起本地音乐客户端</title>
+  <title>打开歌曲 · 网易云音乐</title>
   <style>
     :root { --red: #d33a31; }
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -15,109 +15,54 @@
       color: #fff;
     }
     .card {
-      width: min(460px, 92vw);
-      padding: 40px 36px;
+      width: min(420px, 92vw);
+      padding: 48px 40px;
+      text-align: center;
       background: rgba(255,255,255,.05);
       border: 1px solid rgba(255,255,255,.08);
       border-radius: 24px;
       backdrop-filter: blur(12px);
     }
-    .head { text-align: center; margin-bottom: 28px; }
     .logo {
-      width: 64px; height: 64px; margin: 0 auto 16px;
-      border-radius: 18px;
+      width: 72px; height: 72px; margin: 0 auto 22px;
+      border-radius: 20px;
       background: var(--red);
       display: flex; align-items: center; justify-content: center;
       box-shadow: 0 12px 32px rgba(211,58,49,.4);
-      font-size: 30px;
+      font-size: 34px;
     }
-    h1 { font-size: 20px; margin-bottom: 6px; }
-    .head p { color: rgba(255,255,255,.55); font-size: 13px; }
-    .apps { list-style: none; margin-bottom: 24px; }
-    .apps li {
-      display: flex; align-items: center; gap: 12px;
-      padding: 12px 14px; margin-bottom: 10px;
-      border-radius: 14px;
-      background: rgba(255,255,255,.04);
-      border: 1px solid rgba(255,255,255,.06);
-      font-size: 14px;
-    }
-    .dot { width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,.25); flex: none; }
-    li.busy .dot { background: #ffb400; animation: pulse 1s infinite; }
-    li.ok .dot { background: #34c759; }
-    li.fail .dot { background: #ff5b5b; }
-    @keyframes pulse { 50% { opacity: .35; } }
-    .name { font-weight: 600; }
-    .state { color: rgba(255,255,255,.5); font-size: 12px; margin-left: auto; }
-    .mini {
-      border: 1px solid rgba(255,255,255,.18);
-      background: transparent; color: rgba(255,255,255,.75);
-      font-size: 12px; padding: 4px 10px; border-radius: 999px;
-      cursor: pointer; flex: none;
-    }
-    .mini:hover { background: rgba(255,255,255,.08); }
-    .btn {
-      display: block;
-      padding: 13px 0;
-      border-radius: 999px;
-      background: var(--red);
-      color: #fff; text-decoration: none; font-size: 15px; text-align: center;
-      border: none; width: 100%; cursor: pointer;
-      transition: transform .15s;
-      box-shadow: 0 8px 24px rgba(211,58,49,.35);
-    }
-    .btn:hover { transform: translateY(-2px); }
-    .status { min-height: 20px; margin-top: 14px; font-size: 12.5px; color: rgba(255,255,255,.55); text-align: center; }
-    .status.warn { color: #ffb4a9; }
+    h1 { font-size: 20px; margin-bottom: 8px; }
+    .sub { color: rgba(255,255,255,.5); font-size: 13px; margin-bottom: 26px; }
+    .status { min-height: 20px; font-size: 13px; color: rgba(255,255,255,.55); }
     .status.good { color: #7ee2a0; }
-    .alt { margin-top: 10px; font-size: 12px; text-align: center; }
-    .alt a { color: #ff8d84; }
+    .status.warn { color: #ffb4a9; }
+    .links { margin-top: 22px; font-size: 12.5px; display: flex; gap: 18px; justify-content: center; }
+    .links a { color: #ff8d84; text-decoration: none; }
+    .links a:hover { text-decoration: underline; }
   </style>
 </head>
 <body>
   <main class="card">
-    <div class="head">
-      <div class="logo">🎵</div>
-      <h1>拉起本地音乐客户端</h1>
-      <p>按 网易云音乐 → QQ音乐 → 酷狗音乐 顺序自动尝试唤起<br>网易云将直接播放指定歌曲（ID 3346496288）</p>
-    </div>
-    <ul class="apps" id="apps"></ul>
-    <button class="btn" id="retry">重新尝试</button>
-    <div class="status" id="status"></div>
-    <div class="alt" id="alt" hidden>
-      都没有成功？<a href="https://music.163.com/song?id=3346496288" target="_blank" rel="noopener">网页版播放此歌曲 →</a>
+    <div class="logo">🎵</div>
+    <h1>正在打开音乐客户端</h1>
+    <p class="sub">歌曲 ID 3346496288 · 失败将自动跳转网页版</p>
+    <div class="status" id="status">正在尝试唤起本地客户端…</div>
+    <div class="links">
+      <a href="#" id="retry">重试客户端</a>
+      <a href="https://music.163.com/song?id=3346496288" target="_blank" rel="noopener">直接打开网页版</a>
     </div>
   </main>
   <script>
+    const SONG_ID = '3346496288';
+    const WEB_URL = `https://music.163.com/song?id=${SONG_ID}`;
     const APPS = [
-      { name: '网易云音乐', scheme: 'orpheus://song/3346496288' },
+      { name: '网易云音乐', scheme: `orpheus://song/${SONG_ID}` },
       { name: 'QQ音乐', scheme: 'qqmusic://' },
       { name: '酷狗音乐', scheme: 'kugou://' }
     ];
-    const WAIT = 2500;
-    let idx = 0, running = false, done = false;
-
-    const list = document.getElementById('apps');
+    const WAIT = 2000;
     const status = document.getElementById('status');
-    const alt = document.getElementById('alt');
-    const items = APPS.map((app, i) => {
-      const li = document.createElement('li');
-      li.innerHTML = '<span class="dot"></span><span class="name"></span><span class="state"></span>';
-      li.querySelector('.name').textContent = app.name;
-      li.querySelector('.state').textContent = '待尝试';
-      const mini = document.createElement('button');
-      mini.className = 'mini';
-      mini.textContent = '直接打开';
-      mini.addEventListener('click', () => fire(app.scheme));
-      li.appendChild(mini);
-      list.appendChild(li);
-      return li;
-    });
-
-    function setState(i, cls, text) {
-      items[i].className = cls;
-      items[i].querySelector('.state').textContent = text;
-    }
+    let running = false, done = false;
 
     function fire(scheme) {
       const a = document.createElement('a');
@@ -130,53 +75,49 @@
 
     const sleep = ms => new Promise(r => setTimeout(r, ms));
 
-    // 窗口失去焦点且持续未恢复，视为客户端/确认框已接管
+    // 窗口失焦且持续未恢复，视为某个客户端已接管；页面上不展示逐个尝试过程
     function engaged() { return document.hidden || !document.hasFocus(); }
 
-    async function chain() {
+    async function tryAll() {
       if (running || done) return;
       running = true;
-      alt.hidden = true;
       status.className = 'status';
-      for (; idx < APPS.length; idx++) {
-        setState(idx, 'busy', '尝试中…');
-        status.textContent = `正在尝试唤起 ${APPS[idx].name}…若浏览器弹出确认框请点「打开/允许」`;
-        fire(APPS[idx].scheme);
+      status.textContent = '正在尝试唤起本地客户端…';
+      for (const app of APPS) {
+        fire(app.scheme);
         const t0 = Date.now();
-        let hit = false;
         while (Date.now() - t0 < WAIT) {
           await sleep(150);
           if (engaged()) {
             await sleep(1200);
-            if (engaged()) { hit = true; break; }
+            if (engaged()) {
+              done = true;
+              running = false;
+              status.className = 'status good';
+              status.textContent = `已拉起 ${app.name}`;
+              return;
+            }
           }
         }
-        if (hit) {
-          done = true;
-          running = false;
-          setState(idx, 'ok', '已唤起');
-          status.className = 'status good';
-          status.textContent = `已拉起 ${APPS[idx].name}`;
-          return;
-        }
-        setState(idx, 'fail', '未成功');
       }
       running = false;
+      done = true;
       status.className = 'status warn';
-      status.textContent = '未检测到已安装的客户端，可点右侧按钮逐个再试';
-      alt.hidden = false;
+      status.textContent = '未检测到本地客户端，正在跳转网页版…';
+      await sleep(600);
+      window.location.replace(WEB_URL);
     }
 
-    document.getElementById('retry').addEventListener('click', () => {
-      idx = 0; done = false;
-      items.forEach((_, i) => setState(i, '', '待尝试'));
-      chain();
+    document.getElementById('retry').addEventListener('click', e => {
+      e.preventDefault();
+      done = false;
+      tryAll();
     });
 
-    // 脚本自动触发的协议跳转可能被浏览器拦截，首次用户手势时再补跑一次
-    window.addEventListener('load', chain);
+    // 无用户手势时浏览器可能拦截协议跳转，首次交互时补跑一次
+    window.addEventListener('load', tryAll);
     ['pointerdown', 'keydown'].forEach(ev =>
-      window.addEventListener(ev, () => { if (!done) chain(); }, { once: true }));
+      window.addEventListener(ev, () => { if (!done) tryAll(); }, { once: true }));
   </script>
 </body>
 </html>
