@@ -1,0 +1,1630 @@
+---
+permalink: /
+layout: null
+---
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f0eee8">
+  <meta name="description" content="关于鈴葉音羽：网络安全工程师，关注网络工具、系统与安全工程实践。">
+  <title>About / 鈴葉 音羽</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,500&family=IBM+Plex+Mono:wght@400;500&family=Noto+Serif+SC:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --paper: #f0eee8;
+      --paper-deep: #e5e1d8;
+      --ink: #25241f;
+      --muted: #77736b;
+      --line: rgba(37, 36, 31, 0.17);
+      --orange: #997a70;
+      --acid: #b7b5a6;
+      --clay: #d8c9c0;
+      --serif: "Bodoni Moda", "Noto Serif SC", "Songti SC", STSong, serif;
+      --sans: "Noto Serif SC", "Songti SC", STSong, serif;
+      --mono: "IBM Plex Mono", "SFMono-Regular", Consolas, monospace;
+      --ease: cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      overflow-x: hidden;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 85% 8%, rgba(184, 182, 159, 0.25), transparent 23rem),
+        radial-gradient(circle at 4% 48%, rgba(167, 123, 104, 0.08), transparent 30rem),
+        var(--paper);
+      font-family: var(--sans);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body::before {
+      position: fixed;
+      z-index: 20;
+      inset: 0;
+      pointer-events: none;
+      content: "";
+      opacity: 0.18;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.86' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.23'/%3E%3C/svg%3E");
+      mix-blend-mode: multiply;
+    }
+
+    ::selection {
+      color: var(--paper);
+      background: var(--ink);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      max-width: 100%;
+    }
+
+    button,
+    a {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .skip-link {
+      position: fixed;
+      z-index: 100;
+      top: 1rem;
+      left: 1rem;
+      padding: 0.75rem 1rem;
+      color: var(--paper);
+      background: var(--ink);
+      transform: translateY(-160%);
+      transition: transform 180ms ease;
+    }
+
+    .skip-link:focus {
+      transform: translateY(0);
+    }
+
+    .progress {
+      position: fixed;
+      z-index: 80;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: var(--orange);
+      transform: scaleX(0);
+      transform-origin: left;
+      will-change: transform;
+    }
+
+    .masthead {
+      position: relative;
+      z-index: 30;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      min-height: 84px;
+      padding: 0 clamp(1.25rem, 4vw, 4.5rem);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.8rem;
+      width: max-content;
+      font-family: var(--mono);
+      font-size: 0.74rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .brand-mark {
+      display: grid;
+      width: 2rem;
+      height: 2rem;
+      place-items: center;
+      border: 1px solid var(--ink);
+      border-radius: 50%;
+      font-family: var(--serif);
+      font-size: 0.9rem;
+      line-height: 1;
+      transition: color 250ms ease, background 250ms ease, transform 500ms var(--ease);
+    }
+
+    .brand:hover .brand-mark {
+      color: var(--paper);
+      background: var(--ink);
+      transform: rotate(360deg);
+    }
+
+    .nav {
+      display: flex;
+      gap: clamp(1rem, 3vw, 2.5rem);
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .nav a {
+      position: relative;
+      padding: 0.4rem 0;
+    }
+
+    .nav a::after {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      height: 1px;
+      content: "";
+      background: currentColor;
+      transform: scaleX(0);
+      transform-origin: right;
+      transition: transform 300ms var(--ease);
+    }
+
+    .nav a:hover::after,
+    .nav a:focus-visible::after {
+      transform: scaleX(1);
+      transform-origin: left;
+    }
+
+    .masthead-meta {
+      justify-self: end;
+      font-family: var(--mono);
+      font-size: 0.66rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .masthead-meta .signal {
+      display: inline-block;
+      width: 0.45rem;
+      height: 0.45rem;
+      margin-right: 0.45rem;
+      border-radius: 50%;
+      background: var(--orange);
+      box-shadow: 0 0 0 0 rgba(167, 123, 104, 0.4);
+      animation: signal 2.2s infinite;
+    }
+
+    .page {
+      position: relative;
+    }
+
+    .hero {
+      --mx: 50%;
+      --my: 20%;
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(280px, 0.65fr);
+      gap: clamp(2rem, 5vw, 6rem);
+      min-height: calc(100svh - 84px);
+      padding: clamp(3rem, 7vw, 7rem) clamp(1.25rem, 4vw, 4.5rem) clamp(2rem, 5vw, 5rem);
+      border-bottom: 1px solid var(--line);
+      isolation: isolate;
+    }
+
+    .hero::before {
+      position: absolute;
+      z-index: -1;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      content: "";
+      background: radial-gradient(circle 30rem at var(--mx) var(--my), rgba(255, 255, 255, 0.72), transparent 72%);
+      opacity: 0;
+      transition: opacity 500ms ease;
+    }
+
+    .hero.pointer-active::before {
+      opacity: 1;
+    }
+
+    .hero-main {
+      align-self: center;
+      max-width: 880px;
+    }
+
+    .eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+      margin: 0 0 clamp(2rem, 5vw, 4rem);
+      font-family: var(--mono);
+      font-size: 0.67rem;
+      letter-spacing: 0.14em;
+      line-height: 1.6;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      width: 2.5rem;
+      height: 1px;
+      content: "";
+      background: currentColor;
+    }
+
+    .hero h1 {
+      max-width: none;
+      margin: 0;
+      font-family: var(--serif);
+      font-size: clamp(4.8rem, 10.5vw, 10.5rem);
+      font-weight: 400;
+      line-height: 0.88;
+      letter-spacing: -0.075em;
+    }
+
+    .hero-line {
+      display: block;
+      overflow: hidden;
+      padding: 0.07em 0;
+    }
+
+    .hero-line > span {
+      display: block;
+      transform: translateY(115%);
+      animation: line-up 1.05s var(--ease) forwards;
+    }
+
+    .hero-line:nth-child(2) > span {
+      animation-delay: 100ms;
+    }
+
+    .hero-line em {
+      color: transparent;
+      font-style: normal;
+      -webkit-text-stroke: clamp(1px, 0.12vw, 2px) var(--ink);
+    }
+
+    .hero-bottom {
+      display: grid;
+      grid-template-columns: minmax(240px, 480px) 1fr;
+      gap: clamp(1.5rem, 5vw, 5rem);
+      align-items: end;
+      margin-top: clamp(2.5rem, 5vw, 5rem);
+      opacity: 0;
+      animation: fade-up 900ms 500ms var(--ease) forwards;
+    }
+
+    .hero-intro {
+      margin: 0;
+      font-size: clamp(1rem, 1.25vw, 1.18rem);
+      line-height: 1.9;
+      letter-spacing: 0.01em;
+    }
+
+    .hero-intro strong {
+      font-weight: 600;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.7rem;
+      align-items: center;
+      justify-content: flex-end;
+    }
+
+    .round-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 1.25rem;
+      padding: 0.9rem 1.1rem 0.9rem 1.25rem;
+      border: 1px solid var(--ink);
+      border-radius: 999px;
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      transition: color 250ms ease, background 250ms ease, transform 250ms ease;
+    }
+
+    .round-link span {
+      display: grid;
+      width: 1.65rem;
+      height: 1.65rem;
+      place-items: center;
+      border-radius: 50%;
+      color: var(--paper);
+      background: var(--ink);
+      transition: color 250ms ease, background 250ms ease, transform 350ms var(--ease);
+    }
+
+    .round-link:hover {
+      color: var(--paper);
+      background: var(--ink);
+      transform: translateY(-2px);
+    }
+
+    .round-link:hover span {
+      color: var(--ink);
+      background: var(--acid);
+      transform: rotate(45deg);
+    }
+
+    .round-link.quiet {
+      padding-right: 1rem;
+      padding-left: 1rem;
+      border-color: var(--line);
+    }
+
+    .portrait-wrap {
+      position: relative;
+      align-self: center;
+      justify-self: end;
+      width: min(100%, 440px);
+      margin-top: -1rem;
+      opacity: 0;
+      transform: translateY(20px) rotate(1deg);
+      animation: portrait-in 1.2s 250ms var(--ease) forwards;
+    }
+
+    .portrait {
+      position: relative;
+      padding: clamp(0.55rem, 1vw, 0.8rem);
+      background: var(--orange);
+      box-shadow: 20px 22px 0 var(--ink);
+      transform: rotate(1.2deg);
+      transition: transform 600ms var(--ease), box-shadow 600ms var(--ease);
+    }
+
+    .portrait-wrap:hover .portrait {
+      box-shadow: 10px 12px 0 var(--ink);
+      transform: rotate(-1deg) translate(6px, 6px);
+    }
+
+    .portrait-image {
+      position: relative;
+      overflow: hidden;
+      aspect-ratio: 4 / 5;
+      background: var(--paper-deep);
+      clip-path: polygon(0 9%, 7% 0, 100% 0, 100% 91%, 93% 100%, 0 100%);
+    }
+
+    .portrait-image::after {
+      position: absolute;
+      inset: 0;
+      content: "";
+      background:
+        linear-gradient(125deg, rgba(255, 255, 255, 0.24), transparent 38%),
+        linear-gradient(0deg, rgba(23, 24, 20, 0.18), transparent 45%);
+      mix-blend-mode: screen;
+    }
+
+    .portrait-image img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: saturate(0.82) contrast(1.04);
+      transition: transform 1.1s var(--ease), filter 600ms ease;
+    }
+
+    .portrait-wrap:hover img {
+      filter: saturate(1) contrast(1.02);
+      transform: scale(1.035);
+    }
+
+    .portrait-caption {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 1rem 0.25rem 0.1rem;
+      color: var(--ink);
+      font-family: var(--mono);
+      font-size: 0.66rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .portrait-label {
+      position: absolute;
+      top: -2.2rem;
+      left: -4.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      font-family: var(--mono);
+      font-size: 0.61rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      transform: rotate(-90deg);
+    }
+
+    .portrait-label::before {
+      width: 2.2rem;
+      height: 1px;
+      content: "";
+      background: var(--ink);
+    }
+
+    .stamp {
+      position: absolute;
+      right: -1.4rem;
+      bottom: 3.8rem;
+      display: grid;
+      width: 7.5rem;
+      height: 7.5rem;
+      place-items: center;
+      border: 1px solid var(--ink);
+      border-radius: 50%;
+      color: var(--ink);
+      background: var(--acid);
+      font-family: var(--mono);
+      font-size: 0.59rem;
+      line-height: 1.45;
+      letter-spacing: 0.08em;
+      text-align: center;
+      text-transform: uppercase;
+      transform: rotate(9deg);
+      mix-blend-mode: multiply;
+    }
+
+    .stamp::before,
+    .stamp::after {
+      position: absolute;
+      inset: 0.45rem;
+      border: 1px dashed rgba(23, 24, 20, 0.55);
+      border-radius: 50%;
+      content: "";
+    }
+
+    .stamp::after {
+      inset: 50% auto auto 50%;
+      width: 0.3rem;
+      height: 0.3rem;
+      border: 0;
+      background: var(--ink);
+      transform: translate(-50%, -50%);
+    }
+
+    .hero-index {
+      position: absolute;
+      right: clamp(1rem, 2.3vw, 2.8rem);
+      bottom: clamp(1.5rem, 3vw, 3.5rem);
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.08em;
+      line-height: 1.6;
+      text-align: right;
+      text-transform: uppercase;
+      writing-mode: vertical-rl;
+    }
+
+    .ticker {
+      position: relative;
+      overflow: hidden;
+      border-bottom: 1px solid var(--ink);
+      color: var(--ink);
+      background: var(--acid);
+    }
+
+    .ticker-track {
+      display: flex;
+      width: max-content;
+      animation: ticker 24s linear infinite;
+    }
+
+    .ticker-track span {
+      display: flex;
+      align-items: center;
+      padding: 0.9rem 0;
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .ticker-track span::after {
+      width: 0.45rem;
+      height: 0.45rem;
+      margin: 0 2rem;
+      border-radius: 50%;
+      content: "";
+      background: var(--orange);
+    }
+
+    .section {
+      padding: clamp(5rem, 10vw, 10rem) clamp(1.25rem, 4vw, 4.5rem);
+    }
+
+    .section-heading {
+      display: grid;
+      grid-template-columns: minmax(110px, 0.35fr) 1fr;
+      gap: 2rem;
+      margin-bottom: clamp(3rem, 7vw, 6rem);
+    }
+
+    .section-kicker {
+      margin: 0;
+      font-family: var(--mono);
+      font-size: 0.66rem;
+      letter-spacing: 0.1em;
+      line-height: 1.6;
+      text-transform: uppercase;
+    }
+
+    .section-kicker span {
+      display: block;
+      color: var(--orange);
+    }
+
+    .section-title {
+      max-width: 900px;
+      margin: 0;
+      font-family: var(--serif);
+      font-size: clamp(2.7rem, 6.5vw, 7rem);
+      font-weight: 400;
+      line-height: 1.06;
+      letter-spacing: -0.055em;
+    }
+
+    .section-title em {
+      color: var(--orange);
+      font-style: italic;
+    }
+
+    .manifesto {
+      border-bottom: 1px solid var(--line);
+      background:
+        linear-gradient(90deg, transparent 49.95%, var(--line) 50%, transparent 50.05%),
+        transparent;
+    }
+
+    .manifesto-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.38fr) minmax(260px, 0.62fr);
+      gap: clamp(3rem, 9vw, 10rem);
+      align-items: start;
+    }
+
+    .manifesto-copy {
+      margin: 0;
+      font-family: var(--serif);
+      font-size: clamp(2rem, 4.2vw, 4.8rem);
+      font-weight: 400;
+      line-height: 1.23;
+      letter-spacing: -0.045em;
+    }
+
+    .manifesto-copy .accent {
+      position: relative;
+      white-space: nowrap;
+    }
+
+    .manifesto-copy .accent::after {
+      position: absolute;
+      right: -0.05em;
+      bottom: 0.06em;
+      left: -0.05em;
+      z-index: -1;
+      height: 0.22em;
+      content: "";
+      background: var(--acid);
+      transform: rotate(-1.5deg);
+    }
+
+    .manifesto-aside {
+      padding-top: 0.6rem;
+    }
+
+    .manifesto-aside p {
+      margin: 0 0 2.5rem;
+      font-size: 0.96rem;
+      line-height: 1.95;
+    }
+
+    .identity-list {
+      margin: 0;
+      border-top: 1px solid var(--ink);
+    }
+
+    .identity-list div {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 1rem;
+      padding: 0.85rem 0;
+      border-bottom: 1px solid var(--line);
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .identity-list dt {
+      color: var(--muted);
+    }
+
+    .identity-list dd {
+      margin: 0;
+      text-align: right;
+    }
+
+    .focus {
+      color: var(--paper);
+      background: var(--ink);
+    }
+
+    .focus .section-kicker,
+    .focus .section-kicker span {
+      color: var(--acid);
+    }
+
+    .focus .section-heading {
+      border-bottom: 1px solid rgba(236, 232, 223, 0.24);
+      padding-bottom: clamp(2rem, 5vw, 4rem);
+    }
+
+    .focus .section-title {
+      max-width: 960px;
+    }
+
+    .focus .section-title em {
+      color: var(--orange);
+    }
+
+    .focus-list {
+      border-top: 1px solid rgba(236, 232, 223, 0.22);
+    }
+
+    .focus-item {
+      position: relative;
+      display: grid;
+      grid-template-columns: 84px minmax(170px, 0.7fr) minmax(280px, 1.3fr) auto;
+      gap: clamp(1.5rem, 4vw, 4rem);
+      align-items: center;
+      padding: clamp(1.8rem, 4vw, 3.3rem) 0;
+      border-bottom: 1px solid rgba(236, 232, 223, 0.22);
+      isolation: isolate;
+    }
+
+    .focus-item::before {
+      position: absolute;
+      z-index: -1;
+      inset: 0;
+      content: "";
+      background: var(--orange);
+      transform: scaleY(0);
+      transform-origin: bottom;
+      transition: transform 550ms var(--ease);
+    }
+
+    .focus-item:hover::before {
+      transform: scaleY(1);
+    }
+
+    .focus-number {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.08em;
+    }
+
+    .focus-name {
+      margin: 0;
+      font-family: var(--serif);
+      font-size: clamp(1.8rem, 3.5vw, 4rem);
+      font-weight: 400;
+      line-height: 1;
+      letter-spacing: -0.04em;
+    }
+
+    .focus-name small {
+      display: block;
+      margin-bottom: 0.7rem;
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      font-style: normal;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .focus-copy {
+      max-width: 550px;
+      margin: 0;
+      color: rgba(236, 232, 223, 0.68);
+      font-size: clamp(0.9rem, 1.2vw, 1.05rem);
+      line-height: 1.9;
+      transition: color 300ms ease;
+    }
+
+    .focus-item:hover .focus-copy {
+      color: var(--ink);
+    }
+
+    .focus-arrow {
+      display: grid;
+      width: 3rem;
+      height: 3rem;
+      place-items: center;
+      border: 1px solid rgba(236, 232, 223, 0.45);
+      border-radius: 50%;
+      font-size: 1.05rem;
+      transition: border-color 300ms ease, transform 500ms var(--ease);
+    }
+
+    .focus-item:hover .focus-arrow {
+      border-color: var(--ink);
+      transform: rotate(45deg);
+    }
+
+    .career {
+      display: grid;
+      grid-template-columns: minmax(260px, 0.72fr) minmax(320px, 1.28fr);
+      gap: clamp(3rem, 8vw, 9rem);
+      align-items: start;
+    }
+
+    .career-intro {
+      padding: 2rem 0;
+      border-top: 1px solid var(--ink);
+      border-bottom: 1px solid var(--ink);
+    }
+
+    .career-intro .section-title {
+      margin: 1.5rem 0 1.8rem;
+    }
+
+    .career-summary {
+      max-width: 28rem;
+      margin: 0;
+      font-size: clamp(1rem, 1.35vw, 1.17rem);
+      line-height: 1.9;
+    }
+
+    .career-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-top: 2rem;
+    }
+
+    .career-tags span {
+      padding: 0.68rem 0.95rem;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .career-list {
+      margin: 0;
+      padding: 0;
+      border-top: 1px solid var(--ink);
+      list-style: none;
+    }
+
+    .career-item {
+      display: grid;
+      grid-template-columns: minmax(105px, 0.42fr) minmax(0, 1fr);
+      gap: clamp(1.4rem, 3vw, 3rem);
+      padding: 2rem 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .career-date {
+      padding-top: 0.35rem;
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 0.66rem;
+      letter-spacing: 0.06em;
+      line-height: 1.7;
+      text-transform: uppercase;
+    }
+
+    .career-detail {
+      position: relative;
+      min-height: 6rem;
+      padding-left: 1.7rem;
+      border-left: 1px solid var(--line);
+    }
+
+    .career-detail::before {
+      position: absolute;
+      top: 0.35rem;
+      left: -0.29rem;
+      width: 0.5rem;
+      height: 0.5rem;
+      border-radius: 50%;
+      background: var(--orange);
+      content: "";
+    }
+
+    .career-company {
+      margin: 0;
+      font-family: var(--serif);
+      font-size: clamp(1.5rem, 2.7vw, 2.6rem);
+      font-weight: 400;
+      line-height: 1.15;
+      letter-spacing: -0.04em;
+      overflow-wrap: anywhere;
+    }
+
+    .career-role {
+      margin: 0.6rem 0 0;
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.7;
+    }
+
+    .traces {
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      background: var(--paper-deep);
+    }
+
+    .trace-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 1.2rem;
+    }
+
+    .trace-card {
+      position: relative;
+      display: flex;
+      min-height: 23rem;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: clamp(1.5rem, 3vw, 2.5rem);
+      overflow: hidden;
+      border: 1px solid var(--ink);
+      transition: transform 550ms var(--ease), box-shadow 550ms var(--ease);
+    }
+
+    .trace-card:hover {
+      z-index: 2;
+      box-shadow: 9px 9px 0 var(--ink);
+      transform: translate(-5px, -5px);
+    }
+
+    .trace-card:nth-child(1) {
+      grid-column: span 7;
+      color: var(--paper);
+      background: var(--ink);
+    }
+
+    .trace-card:nth-child(2) {
+      grid-column: span 5;
+      background: var(--clay);
+    }
+
+    .trace-card:nth-child(3) {
+      grid-column: 3 / span 8;
+      min-height: 19rem;
+      background: var(--acid);
+    }
+
+    .trace-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      font-family: var(--mono);
+      font-size: 0.63rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .trace-top .circle-arrow {
+      display: grid;
+      width: 2.5rem;
+      height: 2.5rem;
+      place-items: center;
+      border: 1px solid currentColor;
+      border-radius: 50%;
+      transition: transform 450ms var(--ease);
+    }
+
+    .trace-card:hover .circle-arrow {
+      transform: rotate(45deg);
+    }
+
+    .trace-bottom h3 {
+      max-width: 10ch;
+      margin: 0;
+      font-family: var(--serif);
+      font-size: clamp(2.2rem, 4.3vw, 4.8rem);
+      font-weight: 400;
+      line-height: 1.05;
+      letter-spacing: -0.05em;
+    }
+
+    .trace-bottom p {
+      max-width: 30rem;
+      margin: 1rem 0 0;
+      font-size: 0.88rem;
+      line-height: 1.75;
+      opacity: 0.72;
+    }
+
+    .closing {
+      position: relative;
+      overflow: hidden;
+      padding: clamp(6rem, 13vw, 13rem) clamp(1.25rem, 4vw, 4.5rem);
+      color: var(--ink);
+      background: var(--clay);
+    }
+
+    .closing::before {
+      position: absolute;
+      top: -30%;
+      right: -8%;
+      width: min(50vw, 47rem);
+      aspect-ratio: 1;
+      border: 1px solid rgba(23, 24, 20, 0.35);
+      border-radius: 50%;
+      content: "";
+      box-shadow:
+        0 0 0 4rem rgba(23, 24, 20, 0.025),
+        0 0 0 8rem rgba(23, 24, 20, 0.025),
+        0 0 0 12rem rgba(23, 24, 20, 0.025);
+    }
+
+    .closing-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 1200px;
+    }
+
+    .closing-label {
+      margin: 0 0 2rem;
+      font-family: var(--mono);
+      font-size: 0.67rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .closing h2 {
+      max-width: 11ch;
+      margin: 0;
+      font-family: var(--serif);
+      font-size: clamp(4rem, 11vw, 11rem);
+      font-weight: 400;
+      line-height: 0.9;
+      letter-spacing: -0.07em;
+    }
+
+    .closing-actions {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+      margin-top: clamp(3rem, 8vw, 7rem);
+      padding-top: 1.5rem;
+      border-top: 1px solid rgba(23, 24, 20, 0.45);
+    }
+
+    .closing-actions p {
+      max-width: 30rem;
+      margin: 0;
+      font-size: 0.88rem;
+      line-height: 1.75;
+    }
+
+    .big-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 1rem;
+      flex-shrink: 0;
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+    }
+
+    .big-link::after {
+      display: grid;
+      width: 4.5rem;
+      height: 4.5rem;
+      place-items: center;
+      border: 1px solid var(--ink);
+      border-radius: 50%;
+      content: "↗";
+      font-family: var(--serif);
+      font-size: 1.4rem;
+      transition: color 350ms ease, background 350ms ease, transform 500ms var(--ease);
+    }
+
+    .big-link:hover::after {
+      color: var(--orange);
+      background: var(--ink);
+      transform: rotate(45deg);
+    }
+
+    .footer {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 2rem;
+      align-items: center;
+      padding: 1.5rem clamp(1.25rem, 4vw, 4.5rem);
+      border-top: 1px solid var(--ink);
+      font-family: var(--mono);
+      font-size: 0.58rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .footer span:nth-child(2) {
+      text-align: center;
+    }
+
+    .footer span:last-child {
+      justify-self: end;
+    }
+
+    .reveal {
+      transition: opacity 900ms var(--ease), transform 900ms var(--ease);
+    }
+
+    .has-js .reveal:not(.is-visible) {
+      opacity: 0;
+      transform: translateY(28px);
+    }
+
+    .reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .reveal-delay {
+      transition-delay: 100ms;
+    }
+
+    :focus-visible {
+      outline: 2px solid var(--orange);
+      outline-offset: 4px;
+    }
+
+    @keyframes line-up {
+      to {
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fade-up {
+      from {
+        opacity: 0;
+        transform: translateY(18px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes portrait-in {
+      to {
+        opacity: 1;
+        transform: translateY(0) rotate(1deg);
+      }
+    }
+
+    @keyframes ticker {
+      to {
+        transform: translateX(-50%);
+      }
+    }
+
+    @keyframes signal {
+      0% {
+        box-shadow: 0 0 0 0 rgba(167, 123, 104, 0.4);
+      }
+      70% {
+        box-shadow: 0 0 0 7px rgba(167, 123, 104, 0);
+      }
+      100% {
+        box-shadow: 0 0 0 0 rgba(167, 123, 104, 0);
+      }
+    }
+
+    @media (max-width: 980px) {
+      .masthead {
+        grid-template-columns: 1fr auto;
+      }
+
+      .nav {
+        display: none;
+      }
+
+      .hero {
+        grid-template-columns: 1fr;
+        min-height: auto;
+      }
+
+      .hero-main {
+        padding-top: 1rem;
+      }
+
+      .hero h1 {
+        max-width: 8ch;
+        font-size: clamp(5rem, 17vw, 9.5rem);
+      }
+
+      .hero-bottom {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-actions {
+        justify-content: flex-start;
+      }
+
+      .portrait-wrap {
+        justify-self: center;
+        width: min(84vw, 480px);
+        margin-top: 3rem;
+      }
+
+      .portrait-label,
+      .hero-index {
+        display: none;
+      }
+
+      .manifesto {
+        background: transparent;
+      }
+
+      .manifesto-grid,
+      .career {
+        grid-template-columns: 1fr;
+      }
+
+      .focus-item {
+        grid-template-columns: 60px minmax(150px, 0.7fr) minmax(240px, 1.3fr) auto;
+      }
+
+      .trace-card:nth-child(1),
+      .trace-card:nth-child(2) {
+        grid-column: span 6;
+      }
+
+      .trace-card:nth-child(3) {
+        grid-column: 2 / span 10;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .masthead {
+        min-height: 70px;
+      }
+
+      .brand-wrap {
+        font-size: 0.68rem;
+      }
+
+      .masthead-meta {
+        font-size: 0;
+      }
+
+      .masthead-meta .signal {
+        margin-right: 0;
+      }
+
+      .hero {
+        min-height: calc(100svh - 70px);
+        padding-top: 3.2rem;
+      }
+
+      .hero h1 {
+        max-width: none;
+        font-size: clamp(3.5rem, 16vw, 7rem);
+        line-height: 0.9;
+      }
+
+      .hero-bottom {
+        margin-top: 2.5rem;
+      }
+
+      .hero-actions {
+        align-items: stretch;
+      }
+
+      .round-link {
+        justify-content: space-between;
+      }
+
+      .portrait {
+        box-shadow: 11px 12px 0 var(--ink);
+      }
+
+      .stamp {
+        right: -0.5rem;
+        bottom: 3rem;
+        width: 6rem;
+        height: 6rem;
+        font-size: 0.51rem;
+      }
+
+      .section-heading {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+
+      .section-kicker span {
+        display: inline;
+      }
+
+      .section-title {
+        font-size: clamp(2.55rem, 12vw, 4.5rem);
+      }
+
+      .career-item {
+        grid-template-columns: minmax(86px, 0.34fr) minmax(0, 1fr);
+        gap: 1.1rem;
+      }
+
+      .career-detail {
+        padding-left: 1.1rem;
+      }
+
+      .focus-item {
+        grid-template-columns: 46px 1fr auto;
+        gap: 1rem;
+        padding: 2rem 0;
+      }
+
+      .focus-number {
+        font-size: 0.56rem;
+        white-space: nowrap;
+      }
+
+      .focus-copy {
+        grid-column: 2 / -1;
+        grid-row: 2;
+        padding-right: 1rem;
+      }
+
+      .focus-arrow {
+        width: 2.4rem;
+        height: 2.4rem;
+      }
+
+      .trace-grid {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .trace-card {
+        min-height: 19rem;
+      }
+
+      .closing-actions {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .big-link {
+        justify-content: space-between;
+        width: 100%;
+      }
+
+      .footer {
+        grid-template-columns: 1fr auto;
+      }
+
+      .footer span:nth-child(2) {
+        display: none;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+      }
+
+      .has-js .reveal {
+        opacity: 1;
+        transform: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">跳到主要内容</a>
+  <div class="progress" id="progress" aria-hidden="true"></div>
+
+  <header class="masthead">
+      <a class="brand" href="#profile" aria-label="回到关于页面顶部">
+      <span class="brand-mark">H</span>
+      <span class="brand-wrap">hsin.dev / about</span>
+    </a>
+    <nav class="nav" aria-label="页面导航">
+      <a href="#profile">Profile</a>
+      <a href="#focus">Focus</a>
+      <a href="#experience">Experience</a>
+      <a href="#traces">Traces</a>
+    </nav>
+    <div class="masthead-meta">
+      <span class="signal" aria-hidden="true"></span>
+      PERSONAL ARCHIVE / PUBLIC
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero" id="profile" aria-labelledby="hero-title">
+      <div class="hero-main">
+        <p class="eyebrow">Profile 01 — A personal field note</p>
+        <h1 id="hero-title">
+          <span class="hero-line"><span>把好奇心</span></span>
+          <span class="hero-line"><span>写成<em>系统</em>。</span></span>
+        </h1>
+        <div class="hero-bottom">
+          <p class="hero-intro">
+            公开仓库里能看到网络工具与脚本；职业经历则沿着网络安全，从 Digital China Group 延伸至 Alibaba Cloud。
+          </p>
+          <div class="hero-actions">
+            <a class="round-link" href="https://github.com/cartethyia4396" target="_blank" rel="noreferrer">
+              GitHub
+              <span aria-hidden="true">↗</span>
+            </a>
+            <a class="round-link quiet" href="#focus">
+              继续了解
+              <span aria-hidden="true">↓</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="portrait-wrap">
+        <div class="portrait-label">Portrait / 2026</div>
+        <figure class="portrait" aria-label="鈴葉音羽的 GitHub 头像">
+          <div class="portrait-image">
+            <img src="assets/avatar.png" alt="鈴葉音羽的 GitHub 头像" width="720" height="720">
+          </div>
+          <figcaption class="portrait-caption">
+            <span>鈴葉 音羽</span>
+            <span>PUBLIC PROFILE</span>
+          </figcaption>
+        </figure>
+        <div class="stamp" aria-hidden="true">Observe<br>Secure<br>Build<br>Repeat</div>
+      </div>
+
+      <div class="hero-index" aria-hidden="true">
+        Scroll to trace the signal / 01—04
+      </div>
+    </section>
+
+    <div class="ticker" aria-hidden="true">
+      <div class="ticker-track">
+        <span>Network security</span>
+        <span>Practical tools</span>
+        <span>Systems</span>
+        <span>Open source</span>
+        <span>Engineering</span>
+        <span>Network security</span>
+        <span>Practical tools</span>
+        <span>Systems</span>
+        <span>Open source</span>
+        <span>Engineering</span>
+      </div>
+    </div>
+
+    <section class="section manifesto" aria-labelledby="manifesto-title">
+      <div class="section-heading reveal">
+        <p class="section-kicker"><span>01</span> About / Approach</p>
+        <h2 class="section-title" id="manifesto-title">从技术项目，到职业实践。</h2>
+      </div>
+
+      <div class="manifesto-grid">
+        <p class="manifesto-copy reveal">
+          从网络工具与系统，到安全工程实践，几条路径在职业经历中汇成一条<span class="accent">主线</span>。
+        </p>
+        <aside class="manifesto-aside reveal reveal-delay">
+          <p>
+            公开项目可见网络工具、脚本与系统相关内容；工作经历则沿网络安全展开。
+          </p>
+          <dl class="identity-list">
+            <div>
+              <dt>Name</dt>
+              <dd>鈴葉 音羽</dd>
+            </div>
+            <div>
+              <dt>Handle</dt>
+              <dd>@cartethyia4396</dd>
+            </div>
+            <div>
+              <dt>Field</dt>
+              <dd>Network Security</dd>
+            </div>
+            <div>
+              <dt>Experience</dt>
+              <dd>2023 — 至今</dd>
+            </div>
+          </dl>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section focus" id="focus" aria-labelledby="focus-title">
+      <div class="section-heading reveal">
+        <p class="section-kicker"><span>02</span> Technical practice</p>
+        <h2 class="section-title" id="focus-title">一条职业主线，三组技术线索。</h2>
+      </div>
+
+      <div class="focus-list reveal">
+        <article class="focus-item">
+          <span class="focus-number">01 / 03</span>
+          <h3 class="focus-name"><small>Networks</small>让连接发生</h3>
+          <p class="focus-copy">公开仓库与 issue 留下代理、隧道和网络排障等线索，是目前最明显的技术方向。</p>
+          <span class="focus-arrow" aria-hidden="true">↗</span>
+        </article>
+        <article class="focus-item">
+          <span class="focus-number">02 / 03</span>
+          <h3 class="focus-name"><small>Security</small>守住系统边界</h3>
+          <p class="focus-copy">两段职业经历均围绕网络安全展开，从 Digital China Group 延续至 Alibaba Cloud。</p>
+          <span class="focus-arrow" aria-hidden="true">↗</span>
+        </article>
+        <article class="focus-item">
+          <span class="focus-number">03 / 03</span>
+          <h3 class="focus-name"><small>Tooling</small>把重复交给机器</h3>
+          <p class="focus-copy">账号页面上的 Shell、Go 与 Python 项目涉及脚本、代理和机器人，也包含 fork 与上游作品。</p>
+          <span class="focus-arrow" aria-hidden="true">↗</span>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="experience" aria-labelledby="career-title">
+      <div class="career">
+        <header class="career-intro reveal">
+          <p class="section-kicker"><span>03</span> Professional experience</p>
+          <h2 class="section-title" id="career-title">以网络安全为职业主线。</h2>
+          <p class="career-summary">从 Digital China Group 到 Alibaba Cloud，持续从事网络安全工作。</p>
+          <div class="career-tags" aria-label="职业领域">
+            <span>Network Security</span>
+            <span>Cybersecurity</span>
+          </div>
+        </header>
+
+        <ol class="career-list" aria-label="工作经历">
+          <li class="career-item reveal">
+            <span class="career-date">2026 — 至今</span>
+            <div class="career-detail">
+              <h3 class="career-company">Alibaba Cloud</h3>
+              <p class="career-role">网络安全工程师</p>
+            </div>
+          </li>
+          <li class="career-item reveal reveal-delay">
+            <span class="career-date">2023 — 2026</span>
+            <div class="career-detail">
+              <h3 class="career-company">Digital China Group Co., Ltd.</h3>
+              <p class="career-role">网络安全工程师</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="section traces" id="traces" aria-labelledby="traces-title">
+      <div class="section-heading reveal">
+        <p class="section-kicker"><span>04</span> Public traces</p>
+        <h2 class="section-title" id="traces-title">继续沿着这些公开线索。</h2>
+      </div>
+
+      <div class="trace-grid">
+        <a class="trace-card reveal" href="https://github.com/cartethyia4396" target="_blank" rel="noreferrer">
+          <div class="trace-top">
+            <span>Code / Open Source</span>
+            <span class="circle-arrow" aria-hidden="true">↗</span>
+          </div>
+          <div class="trace-bottom">
+            <h3>GitHub</h3>
+            <p>仓库、分支和那些仍在被反复修改的想法。</p>
+          </div>
+        </a>
+
+        <a class="trace-card reveal reveal-delay" href="#experience">
+          <div class="trace-top">
+            <span>Experience / 03</span>
+            <span class="circle-arrow" aria-hidden="true">↗</span>
+          </div>
+          <div class="trace-bottom">
+            <h3>职业经历</h3>
+            <p>从 Digital China Group 到 Alibaba Cloud，持续从事网络安全工作。</p>
+          </div>
+        </a>
+
+        <a class="trace-card reveal" href="#focus">
+          <div class="trace-top">
+            <span>Focus / 02</span>
+            <span class="circle-arrow" aria-hidden="true">↗</span>
+          </div>
+          <div class="trace-bottom">
+            <h3>技术线索</h3>
+            <p>网络、安全与工具相关的公开项目和技术内容。</p>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <section class="closing" aria-labelledby="closing-title">
+      <div class="closing-inner">
+        <p class="closing-label">End note / Stay curious</p>
+        <h2 id="closing-title">故事未完，信号继续。</h2>
+        <div class="closing-actions">
+          <p>想讨论网络安全、系统工具或开源项目，可以从 GitHub 找到我。</p>
+          <a class="big-link" href="https://github.com/cartethyia4396" target="_blank" rel="noreferrer">
+            Say hello
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <span>© <span id="year">2026</span> 鈴葉 音羽</span>
+    <span>Made with curiosity / 好奇心驱动</span>
+    <span>About me — 01</span>
+  </footer>
+
+  <script>
+    const root = document.documentElement;
+    const progress = document.getElementById("progress");
+    const hero = document.querySelector(".hero");
+    const year = document.getElementById("year");
+    root.classList.add("has-js");
+
+    const setProgress = () => {
+      const max = root.scrollHeight - root.clientHeight;
+      const value = max > 0 ? root.scrollTop / max : 0;
+      progress.style.transform = `scaleX(${value})`;
+    };
+
+    const updateYear = () => {
+      year.textContent = new Date().getFullYear();
+    };
+
+    if ("IntersectionObserver" in window) {
+      const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add("is-visible");
+          revealObserver.unobserve(entry.target);
+        });
+      }, { threshold: 0.14 });
+
+      document.querySelectorAll(".reveal").forEach((item) => revealObserver.observe(item));
+    } else {
+      document.querySelectorAll(".reveal").forEach((item) => item.classList.add("is-visible"));
+    }
+
+    hero.addEventListener("pointermove", (event) => {
+      const bounds = hero.getBoundingClientRect();
+      hero.style.setProperty("--mx", `${event.clientX - bounds.left}px`);
+      hero.style.setProperty("--my", `${event.clientY - bounds.top}px`);
+      hero.classList.add("pointer-active");
+    });
+
+    hero.addEventListener("pointerleave", () => hero.classList.remove("pointer-active"));
+    window.addEventListener("scroll", setProgress, { passive: true });
+    window.addEventListener("resize", setProgress);
+
+    updateYear();
+    setProgress();
+  </script>
+</body>
+</html>
